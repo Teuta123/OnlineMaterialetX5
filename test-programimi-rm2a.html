@@ -1,0 +1,235 @@
+<!doctype html><html lang="sq"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Testi RM2·A · Programimi</title><style>:root{color-scheme:light;box-sizing:border-box}[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#F2F5F4; --surface:#FFFFFF; --surface2:#E9EEEC; --ink:#172033; --muted:#566074; --line:#D5DDDA;
+  --accent:#0E6E73; --accent-ink:#FFFFFF; --accent-soft:#DDF1F1; --mark:#B86E0B; --mark-soft:#FCEFD9;
+  --good:#1C7C3A; --good-soft:#E1F3E6; --bad:#B42318; --bad-soft:#FBE6E3;
+  --display:'Bricolage Grotesque','Onest',system-ui,sans-serif;
+  --body:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1417; --surface:#162026; --surface2:#1D2A31; --ink:#E4ECEE; --muted:#9BA9B1; --line:#2A3942;
+    --accent:#4CC2BD; --accent-ink:#06282A; --accent-soft:#12383A; --mark:#F0B35B; --mark-soft:#3A2B14;
+    --good:#5CCB7E; --good-soft:#153524; --bad:#FF8A7A; --bad-soft:#3D1C18;
+  }
+}
+:root[data-theme="dark"]{
+    color-scheme:dark;
+    --bg:#0E1417; --surface:#162026; --surface2:#1D2A31; --ink:#E4ECEE; --muted:#9BA9B1; --line:#2A3942;
+    --accent:#4CC2BD; --accent-ink:#06282A; --accent-soft:#12383A; --mark:#F0B35B; --mark-soft:#3A2B14;
+    --good:#5CCB7E; --good-soft:#153524; --bad:#FF8A7A; --bad-soft:#3D1C18;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:760px;margin:0 auto}
+h1,h2{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.top{padding-block:28px 18px;border-bottom:1px solid var(--line);display:grid;gap:6px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.top h1{font-size:clamp(28px,5vw,40px);font-weight:800}
+.top p{margin:0;color:var(--muted);max-width:62ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.facts span{font-size:13px;background:var(--surface2);border-radius:999px;padding:3px 12px;font-variant-numeric:tabular-nums}
+
+.who{display:grid;grid-template-columns:2fr 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:20px}
+.who label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--muted)}
+.who input{font-size:16px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);width:100%}
+.who input.err{border-color:var(--bad);background:var(--bad-soft)}
+@media (max-width:520px){.who{grid-template-columns:1fr}}
+
+.sticky{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.bar{flex:1;height:6px;border-radius:6px;background:var(--surface2);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.cnt{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+ol.qs{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:14px;counter-reset:q}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.q.ok{border-color:var(--good)} .q.no{border-color:var(--bad)} .q.miss{border-color:var(--mark)}
+.qh{display:flex;gap:12px;align-items:baseline;margin-bottom:12px}
+.num{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--accent);min-width:2.2em;font-variant-numeric:tabular-nums}
+.qt{font-weight:600}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;gap:10px;align-items:center;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt input{accent-color:var(--accent);margin:0;flex:none;width:18px;height:18px}
+.opt .l{font-family:var(--mono);font-size:12px;color:var(--muted);flex:none}
+.opt .tx{min-width:0;overflow-wrap:anywhere}
+.opt.code .tx{font-family:var(--mono);font-size:14.5px}
+.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.locked .opt{cursor:default}
+.locked .opt:hover{border-color:var(--line)}
+.verd{margin-top:10px;font-size:14px;font-weight:600}
+.q.ok .verd{color:var(--good)} .q.no .verd{color:var(--bad)} .q.miss .verd{color:var(--mark)}
+
+.actions{margin-top:20px;display:grid;gap:10px}
+.btn{border:1px solid var(--line);background:var(--surface);padding:11px 18px;border-radius:10px;font-weight:600;font-size:16px}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.warnbox{background:var(--mark-soft);border-left:3px solid var(--mark);padding:12px 14px;border-radius:0 10px 10px 0;display:grid;gap:10px}
+.warnbox p{margin:0}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+
+.result{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:20px;display:grid;gap:14px}
+.result h2{font-size:24px;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stats div{background:var(--surface2);border-radius:10px;padding:10px 12px}
+.stats small{display:block;font-size:12px;color:var(--muted)}
+.stats b{font-family:var(--display);font-size:28px;font-variant-numeric:tabular-nums}
+.stats .grade{background:var(--accent);color:var(--accent-ink)}
+.stats .grade small{color:inherit;opacity:.85}
+.howto{margin:0;padding-left:20px;color:var(--muted)}
+.howto li{margin:3px 0}
+textarea#res-text{width:100%;font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);resize:vertical}
+.small{font-size:13px;color:var(--muted);margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div style="max-width:1120px;margin:0 auto;padding-top:14px;font-size:14px"><a href="index.html" style="color:var(--accent,#0E6E73);font-weight:600;text-decoration:none">← Të gjitha materialet</a></div>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Programimi i aplikacioneve · Klasa 10 · RM2·A</div>
+    <h1>Test: RM2·A · Analiza e dizajnit, gjuhët, mjetet dhe struktura e projektit</h1>
+    <p>Lexo me kujdes çdo pyetje dhe zgjidh një përgjigje. Vetëm një përgjigje është e saktë. Kur të mbarosh, shtyp “Dorëzo testin”.</p>
+    <div class="facts"><span>30 pyetje</span><span>1 pikë për pyetje</span><span>RM2·A: Dizajni, mjetet, Git, struktura</span></div>
+  </header>
+
+  <form id="quiz" novalidate>
+    <div class="who">
+      <label for="emri">Emri dhe mbiemri<input id="emri" autocomplete="name" placeholder="p.sh. Arta Krasniqi"></label>
+      <label for="klasa">Klasa<input id="klasa" placeholder="p.sh. X-5"></label>
+    </div>
+
+    <div class="sticky"><div class="bar"><i id="bar"></i></div><span class="cnt" id="cnt">0 / 30 të përgjigjura</span></div>
+
+    <ol class="qs" id="qs"></ol>
+
+    <div class="actions" id="actions">
+      <div class="warnbox" id="confirm" hidden>
+        <p id="confirm-msg"></p>
+        <div class="row"><button type="button" class="btn pri" id="sure">Po, dorëzoje</button><button type="button" class="btn" id="back">Kthehu te pyetjet</button></div>
+      </div>
+      <p class="small" id="name-msg" hidden>Shkruaj emrin, mbiemrin dhe klasën para se ta dorëzosh testin.</p>
+      <button type="submit" class="btn pri" id="submit">Dorëzo testin</button>
+    </div>
+  </form>
+
+  <section class="result" id="result" hidden aria-live="polite">
+    <h2 id="res-title">Rezultati</h2>
+    <div class="stats">
+      <div><small>Pikët</small><b id="r-pts">0/30</b></div>
+      <div><small>Përqindja</small><b id="r-pct">0%</b></div>
+      <div class="grade"><small>Nota</small><b id="r-grade">1</b></div>
+    </div>
+    <p class="small">Pyetjet me kornizë të gjelbër janë të sakta, me të kuqe të gabuara, me portokalli pa përgjigje.</p>
+    <div>
+      <strong>Si ta dorëzosh në Google Classroom</strong>
+      <ol class="howto">
+        <li>Shtyp “Kopjo rezultatin”.</li>
+        <li>Hap detyrën në Google Classroom.</li>
+        <li>Ngjite tekstin te “Komenti privat” dhe shtyp “Dorëzo” (Turn in).</li>
+      </ol>
+    </div>
+    <textarea id="res-text" rows="4" readonly aria-label="Teksti i rezultatit"></textarea>
+    <div class="row"><button type="button" class="btn pri" id="copy">Kopjo rezultatin</button><span class="small" id="copied" style="align-self:center"></span></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const QS = [{"c": "Projekti", "q": "Cili është projekti që ndërtohet gjatë modulit?", "o": ["E-Ditari i Shkollës", "Dyqani online i shkollës", "Loja e kuizeve", "Biblioteka e Shkollës"]}, {"c": "Kërkesat", "q": "Kush lejohet të fshijë libra (kërkesa K4)?", "o": ["Bibliotekari dhe nxënësit", "Askush", "Vetëm administratori", "Çdo vizitor i faqes"]}, {"c": "Kërkesat", "q": "Cila nga këto është kërkesë jofunksionale?", "o": ["Kërkimi i librave sipas titullit", "Aplikacioni duhet të punojë në kompjuter dhe telefon", "Huazimi dhe kthimi i librave", "Shtimi dhe ndryshimi i librave"]}, {"c": "Kërkesat", "q": "Kërkesa K5 kërkon që të dhënat e librit të plotësohen automatikisht sipas:", "o": ["ISBN-së, nga Open Library", "Numrit të kopjeve", "Datës së huazimit", "Emrit të bibliotekarit"]}, {"c": "Analiza", "q": "Çfarë përshkruan një Use Case?", "o": ["Tabelat dhe kolonat e bazës", "Si ndërvepron një përdorues me aplikacionin për të arritur një qëllim", "Ngjyrat dhe fontet e aplikacionit", "Strukturën e folderave të projektit"]}, {"c": "Analiza", "q": "Çfarë tregon User Flow?", "o": ["Rrugën e përdoruesit ndërmjet ekraneve dhe veprimeve", "Shpejtësinë e serverit", "Historikun e versioneve në Git", "Listën e paketave të instaluara"]}, {"c": "Analiza", "q": "Kush është aktori në Use Case “Shto libër me ISBN”?", "o": ["Vizitori pa llogari", "Open Library", "Bibliotekari i identifikuar", "Serveri MySQL"]}, {"c": "Analiza", "q": "Çfarë ndodh në rastin alternativ kur ISBN-ja nuk gjendet?", "o": ["Aplikacioni mbyllet", "Libri ruhet me fusha bosh", "Fshihen të gjithë librat", "Shfaqet mesazh dhe bibliotekari i shkruan të dhënat me dorë"]}, {"c": "Analiza", "q": "Çfarë lidhje realizon tabela loans (huazimet)?", "o": ["Një-me-një ndërmjet librave dhe autorëve", "Nuk lidh asnjë tabelë", "Një-me-shumë ndërmjet përdoruesve dhe fjalëkalimeve", "Shumë-me-shumë ndërmjet librave dhe anëtarëve"]}, {"c": "API", "q": "Çfarë është endpoint-i?", "o": ["Metoda HTTP dhe URL-ja që kryejnë një veprim, p.sh. GET /api/books", "Tabelë në bazën e të dhënave", "Skedar CSS i frontend-it", "Degë në Git"]}, {"c": "API", "q": "Cila rrugë merr të dhënat e librit nga Open Library?", "o": ["GET /api/books/lookup/:isbn", "DELETE /api/books/:id", "GET /api/loans", "POST /api/books"]}, {"c": "API", "q": "Cila rrugë kërkon rolin e administratorit?", "o": ["DELETE /api/books/:id", "POST /api/auth/login", "GET /api/books", "GET /api/books/:id"]}, {"c": "API", "q": "Çfarë bën POST /api/auth/login?", "o": ["Fshin një përdorues", "Shton një libër të ri", "Hyrjen në sistem; kthen token", "Kthen listën e librave"]}, {"c": "API", "q": "Me cilën rrugë regjistrohet kthimi i librit?", "o": ["POST /api/auth/register", "PUT /api/loans/:id/return", "GET /api/books", "DELETE /api/books/:id"]}, {"c": "Gjuhët dhe mjetet", "q": "Si zgjidhet teknologjia për një projekt?", "o": ["Gjithmonë më e reja që ka dalë", "Sipas ngjyrës së logos së saj", "Sipas problemit dhe kritereve: platforma, siguria, njohuritë e ekipit, kostoja, mirëmbajtja", "Rastësisht"]}, {"c": "Gjuhët dhe mjetet", "q": "Për çfarë shërben Node.js bashkë me npm?", "o": ["Node.js është editor kodi; npm është shfletues", "Node.js është bazë të dhënash; npm është gjuhë", "Node.js ekzekuton JavaScript në server; npm instalon paketat", "Të dyja përdoren vetëm për CSS"]}, {"c": "Gjuhët dhe mjetet", "q": "Për çfarë përdoret XAMPP në këtë modul?", "o": ["Për kontrollin e versioneve", "Për testimin e kërkesave API", "Për serverin MySQL dhe administrimin e bazës me phpMyAdmin", "Për sugjerime kodi me IA"]}, {"c": "Gjuhët dhe mjetet", "q": "Me cilin mjet testohen kërkesat API?", "o": ["Paint", "Git", "Thunder Client ose Postman", "phpMyAdmin"]}, {"c": "Gjuhët dhe mjetet", "q": "Çfarë ofrojnë DevTools e shfletuesit (F12)?", "o": ["Publikimin e aplikacionit", "Console, Network dhe Elements për debugging të frontend-it", "Krijimin e bazës së të dhënave", "Instalimin e Node.js"]}, {"c": "Mjedisi", "q": "Çfarë krijon komanda npm init -y?", "o": ["Skedarin index.html", "Skedarin .env", "Skedarin package.json", "Folderin node_modules"]}, {"c": "Mjedisi", "q": "Ku ruhen paketat e instaluara me npm install?", "o": ["Në folderin node_modules", "Në folderin public", "Në skedarin .env", "Në bazën MySQL"]}, {"c": "Git", "q": "Çfarë është Git?", "o": ["Framework për frontend", "Bazë të dhënash", "Gjuhë programimi", "Sistem për kontrollin e versioneve të kodit"]}, {"c": "Git", "q": "Cila komandë ruan një version me përshkrim?", "o": ["git init", "git commit -m \"mesazh\"", "git status", "git push"]}, {"c": "Git", "q": "Çfarë bën git push?", "o": ["Fshin repository-n", "Dërgon ndryshimet në GitHub", "Merr ndryshimet e fundit nga GitHub", "Krijon degë të re"]}, {"c": "Git", "q": "Çfarë tregon git status?", "o": ["Cilat skedarë kanë ndryshuar", "Historikun e të gjitha versioneve", "Adresën e GitHub-it", "Listën e paketave npm"]}, {"c": "Git", "q": "Çfarë vendoset në skedarin .gitignore?", "o": ["package.json", "README.md", "index.html dhe style.css", "node_modules/ dhe .env"]}, {"c": "Git", "q": "Çfarë duhet bërë nëse një sekret (fjalëkalim, çelës) publikohet gabimisht në GitHub?", "o": ["Mjafton të fshihet skedari", "Të ndryshohet menjëherë sekreti", "Të bëhet git pull", "Asgjë, nuk ka rrezik"]}, {"c": "Struktura", "q": "Çfarë përmban folderi public/ i projektit?", "o": ["Sekretet e projektit", "Shërbimet e backend-it", "Testet automatike", "Frontend-in: HTML, CSS dhe JavaScript të faqes"]}, {"c": "Struktura", "q": "Cila është detyra e controller-it?", "o": ["Ruan fjalëkalimet e bazës", "Përmban pyetjet SQL dhe logjikën e biznesit", "Lexon kërkesën, validon, thërret shërbimin dhe kthen përgjigjen HTTP", "Lidh metodën dhe URL-në me funksionin"]}, {"c": "Struktura", "q": "Ku vendoset logjika e biznesit dhe pyetjet në bazën e të dhënave?", "o": ["Te route-t", "Te folderi public", "Te service-t", "Te .gitignore"]}];
+  const K = (function(s){const b=atob(s);return Array.from(b,(c,i)=>(c.charCodeAt(0)^(0x61+i))-3);})("Z2dnZ2FlYm5vaWhvaGpqdXR3d3F2cHN8enx/enh7");
+  const L = ["A","B","C","D"];
+  const shuffle = a => {for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  const order = shuffle(QS.map((_,i)=>i));
+  const list = document.getElementById('qs');
+  const isCode = t => /^[<&.\/a-z]|type=|=\"|→/.test(t) && !/\s[a-zëç]{4,}\s[a-zëç]{4,}/i.test(t);
+
+  order.forEach((qi,pos)=>{
+    const q = QS[qi];
+    const li = document.createElement('li');
+    li.className='q'; li.dataset.qi=qi;
+    const h = document.createElement('div'); h.className='qh';
+    const n = document.createElement('span'); n.className='num'; n.textContent=(pos+1)+'.';
+    const t = document.createElement('span'); t.className='qt'; t.textContent=q.q;
+    h.append(n,t); li.append(h);
+    const box = document.createElement('div'); box.className='opts'; box.setAttribute('role','radiogroup');
+    shuffle([0,1,2,3]).forEach((oi,k)=>{
+      const lab=document.createElement('label'); lab.className='opt'+(isCode(q.o[oi])?' code':'');
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='q'+qi; inp.value=oi; inp.id='q'+qi+'_'+oi;
+      const l=document.createElement('span'); l.className='l'; l.textContent=L[k];
+      const tx=document.createElement('span'); tx.className='tx'; tx.textContent=q.o[oi];
+      lab.append(inp,l,tx); box.append(lab);
+    });
+    li.append(box);
+    const v=document.createElement('div'); v.className='verd'; v.hidden=true; li.append(v);
+    list.append(li);
+  });
+
+  const form=document.getElementById('quiz');
+  const answered=()=>QS.filter((_,i)=>form.querySelector('input[name="q'+i+'"]:checked')).length;
+  const upd=()=>{const a=answered();document.getElementById('cnt').textContent=a+' / '+QS.length+' të përgjigjura';document.getElementById('bar').style.width=(a/QS.length*100)+'%';};
+  form.addEventListener('change',upd);
+
+  const emri=document.getElementById('emri'), klasa=document.getElementById('klasa');
+  const conf=document.getElementById('confirm'), nm=document.getElementById('name-msg');
+  let done=false;
+
+  form.addEventListener('submit',e=>{
+    e.preventDefault(); if(done) return;
+    const okName=emri.value.trim().length>2, okClass=klasa.value.trim().length>0;
+    emri.classList.toggle('err',!okName); klasa.classList.toggle('err',!okClass);
+    if(!okName||!okClass){nm.hidden=false;(okName?klasa:emri).focus();window.scrollTo({top:0,behavior:'smooth'});return;}
+    nm.hidden=true;
+    const miss=QS.length-answered();
+    if(miss>0){document.getElementById('confirm-msg').textContent='Ke '+miss+(miss===1?' pyetje':' pyetje')+' pa përgjigje. Dëshiron ta dorëzosh testin gjithsesi?';conf.hidden=false;document.getElementById('sure').focus();return;}
+    finish();
+  });
+  document.getElementById('sure').addEventListener('click',finish);
+  document.getElementById('back').addEventListener('click',()=>{conf.hidden=true;const f=[...list.children].find(li=>!li.querySelector('input:checked'));if(f)f.scrollIntoView({behavior:'smooth',block:'center'});});
+
+  function grade(p){return p>=90?5:p>=80?4:p>=65?3:p>=50?2:1;}
+
+  function finish(){
+    done=true; conf.hidden=true;
+    let pts=0; const wrong=[];
+    [...list.children].forEach((li,pos)=>{
+      const qi=+li.dataset.qi, c=li.querySelector('input:checked'), v=li.querySelector('.verd');
+      v.hidden=false;
+      if(!c){li.classList.add('miss');v.textContent='Pa përgjigje';wrong.push(pos+1);}
+      else if(+c.value===K[qi]){li.classList.add('ok');v.textContent='E saktë';pts++;}
+      else{li.classList.add('no');v.textContent='E gabuar';wrong.push(pos+1);}
+    });
+    form.querySelectorAll('input[type=radio]').forEach(i=>i.disabled=true);
+    list.classList.add('locked');
+    emri.readOnly=true; klasa.readOnly=true;
+    document.getElementById('actions').hidden=true;
+    const pct=Math.round(pts/QS.length*100), g=grade(pct);
+    document.getElementById('r-pts').textContent=pts+'/'+QS.length;
+    document.getElementById('r-pct').textContent=pct+'%';
+    document.getElementById('r-grade').textContent=g;
+    document.getElementById('res-title').textContent='Rezultati i '+emri.value.trim();
+    const d=new Date(), ds=d.toLocaleDateString('sq-AL')+' '+d.toLocaleTimeString('sq-AL',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('res-text').value='Testi RM2·A – Dizajni, mjetet dhe struktura (30 pyetje)\nNxënësi: '+emri.value.trim()+' | Klasa: '+klasa.value.trim()+'\nPikët: '+pts+'/'+QS.length+' ('+pct+'%) | Nota: '+g+'\nData: '+ds;
+    const r=document.getElementById('result'); r.hidden=false; r.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  document.getElementById('copy').addEventListener('click',()=>{
+    const ta=document.getElementById('res-text'), msg=document.getElementById('copied');
+    const fallback=()=>{ta.focus();ta.select();msg.textContent='Teksti u zgjodh. Shtyp Ctrl + C për ta kopjuar.';};
+    try{navigator.clipboard.writeText(ta.value).then(()=>{msg.textContent='U kopjua. Tani ngjite te komenti privat.';},fallback);}catch(e){fallback();}
+  });
+  upd();
+})();
+</script>
+</body></html>
